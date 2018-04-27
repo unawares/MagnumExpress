@@ -42,11 +42,19 @@
 </template>
 
 <script>
+import { overlayMixin } from '@/App'
+
 export default {
   name: 'HeaderComponent',
+  mixins: [overlayMixin],
   data () {
     return {
       menu: false
+    }
+  },
+  watch: {
+    menu (v) {
+      this.setOverlay(v)
     }
   }
 }
@@ -62,6 +70,7 @@ export default {
   z-index: 100
   height: 50px
   position: fixed
+  top: 0
   width: 100%
   .toolbar-wrapper
     height: 100%
@@ -76,7 +85,7 @@ export default {
       width: 72px
       height: 72px
       transform: translate(-50%, 50%)
-      border: 99999px solid #C01950
+      border: 99999px solid #AD1456
       border-radius: 50%
     .container.actions
       display: flex
@@ -106,9 +115,9 @@ export default {
           padding-left: 16px
           padding-right: 16px
         &.active
-          background-color: #AF124B
+          background-color: #9B0E51
         &:hover
-          background-color: #9E124B
+          background-color: #91034E
         @media screen and (max-width: 600px)
           .text
             display: none
@@ -118,7 +127,7 @@ export default {
     cursor: pointer
     width: 64px
     height: 64px
-    background-color: #C01950
+    background-color: #AD1456
     position: absolute
     left: 50%
     transform: translate(-50%, -50%)
@@ -129,11 +138,12 @@ export default {
     .icon
       transform: translate(-2.5px, 1px)
     &:hover
-      background-color: #9E124B
+      background-color: #91034E
 
 .menu
+  top: 0
   color: white
-  background-color: #AF124B
+  background-color: #9B0E51
   z-index: 99
   position: fixed
   width: 100%
@@ -160,10 +170,9 @@ export default {
           padding: 10px 16px 8px
           font-size: 14px
           &:hover
-            background-color: #9E124B
+            background-color: #91034E
   &.active
     transform: translateY(0)
     .container
       animation: 200ms cubic-bezier(0.4, 0.0, 0.6, 1) 250ms forwards delayedShow
-
 </style>
