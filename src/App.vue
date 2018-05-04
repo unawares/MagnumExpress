@@ -1,11 +1,15 @@
 <template>
   <div id="app">
     <router-view/>
-    <div class="overlay"></div>
+    <div class="overlay" @click="onOverlayClick"></div>
   </div>
 </template>
 
 <script>
+const EventEmitter = require('events')
+
+export var overlayEventEmitter = new EventEmitter()
+
 export var overlayMixin = {
   methods: {
     setOverlay (state) {
@@ -22,7 +26,12 @@ export var overlayMixin = {
 }
 
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    onOverlayClick () {
+      overlayEventEmitter.emit('click')
+    }
+  }
 }
 </script>
 

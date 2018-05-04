@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { overlayMixin } from '@/App'
+import { overlayMixin, overlayEventEmitter } from '@/App'
 
 export default {
   name: 'HeaderComponent',
@@ -54,7 +54,20 @@ export default {
   },
   watch: {
     menu (v) {
+      if (v) {
+        overlayEventEmitter.once('click', this.closeMenu)
+      } else {
+        overlayEventEmitter.removeListener('click', this.closeMenu)
+      }
       this.setOverlay(v)
+    }
+  },
+  methods: {
+    openMenu () {
+      this.menu = true
+    },
+    closeMenu () {
+      this.menu = false
     }
   }
 }
@@ -149,6 +162,8 @@ export default {
   width: 100%
   transform: translateY(-100%)
   transition: transform cubic-bezier(0.4, 0.0, 0.6, 1) 400ms
+  max-height: 100vh
+  overflow-y: scroll
   .container
     opacity: 0
     box-sizing: border-box
